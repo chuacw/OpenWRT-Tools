@@ -1,0 +1,11 @@
+#!/bin/sh /etc/rc.common
+# place script in /etc/init.d and name this file as fan_control
+START=99
+PIDFILE=/var/run/fan_monitor_pid
+start() {
+    start-stop-daemon -b -S -x /usr/sbin/fan_monitor -m -p $PIDFILE
+}
+stop() {
+    start-stop-daemon -K -p $PIDFILE
+}
+

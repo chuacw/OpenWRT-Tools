@@ -1,0 +1,17 @@
+#!/bin/sh
+# Blocking ads with the router
+# Needs to ensure that hosts use the router as DNS
+# and specify in -> Network / DHCP and DNS / Resolv and Hosts Files / Additional Hosts files the file: /var/dlhosts 
+n=1
+while sleep 60
+do
+	wget -q -O - http://www.mvps.org/winhelp2002/hosts.txt | grep "^0.0.0.0" | grep -v localhost | awk '{print "0.0.0.0\t"$2}' | tr -d '\015' >/var/dlhosts
+
+	[ `grep -il doubleclick /var/dlhosts` ] && break
+	[ $n -gt 5 ] && break
+	let
+n+=1
+done
+[ -e /mnt/sda1/hosts ] && cat /mnt/sda1/hosts >>/var/dlhosts
+[ -e /mnt/sdb1/hosts ] && cat /mnt/sdb1/hosts >>/var/dlhosts
+killall -HUP dnsmasq
