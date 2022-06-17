@@ -1,0 +1,10 @@
+# Place this file in the following location and name it as etc/hotplug.d/iface/10-ethtool 
+# chuacw 16 Jun 2022 setting full 1Gbps on all local lan
+
+[ ifup = "$ACTION" ] || exit 0
+[ -n "$DEVICE" ] || exit 0
+
+if [ "$DEVICE" == lan1 ] || [ "$DEVICE" == lan2 ] || [ "$DEVICE" == lan3 ] || [ "$DEVICE" == lan4 ] ; then
+      ethtool -s "$DEVICE" speed 1000 duplex full
+fi
+
