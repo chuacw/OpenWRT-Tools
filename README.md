@@ -14,4 +14,4 @@ Blocking ads using DNS
 Scripts for maximizing LAN speed
 - 10-ethtool
 
-Instructions on where to place each file are located in the files itself.
+Instructions on where to place each file are located in the files themselves.
